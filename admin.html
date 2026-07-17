@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Iliana Fashion & More</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#3B0F4F; --plum-light:#6C4A7E; --magenta:#C81A6D;
+    --orange:#F0952B; --hotpink:#EC1876; --cream:#FBF6F1;
+    --paper:#FFFDFB; --ink:#241129; --ink-soft:#5B4A63; --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Work Sans',sans-serif;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;margin:0;}
+  .wrap{max-width:640px;margin:0 auto;padding:24px 18px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+  header h1{font-size:1.3rem;color:var(--plum);}
+  header h1 em{font-style:italic;color:var(--magenta);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 22px;border-radius:999px;font-weight:600;font-size:0.95rem;
+    border:none;cursor:pointer;transition:transform .15s ease;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn-primary{background:var(--magenta);color:#fff;}
+  .btn-ghost{background:transparent;border:1.5px solid var(--plum);color:var(--plum);}
+  .btn-danger{background:#fff;border:1.5px solid #d33;color:#d33;}
+  .btn:disabled{opacity:0.5;cursor:not-allowed;}
+  .card{background:var(--paper);border-radius:var(--radius);padding:22px;box-shadow:0 12px 28px -18px rgba(59,15,79,0.35);margin-bottom:20px;}
+  label{display:block;font-size:0.85rem;font-weight:600;color:var(--ink-soft);margin:14px 0 6px;}
+  input[type=text], input[type=number], input[type=email], input[type=password], select, textarea{
+    width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(59,15,79,0.18);
+    font-family:inherit;font-size:1rem;background:#fff;color:var(--ink);
+  }
+  textarea{resize:vertical;min-height:80px;}
+  input[type=file]{width:100%;padding:10px 0;font-size:0.9rem;}
+  .row{display:flex;gap:12px;}
+  .row > *{flex:1;}
+  .hint{font-size:0.8rem;color:var(--ink-soft);margin-top:6px;}
+  .error{background:#fdeaea;color:#a33;padding:10px 14px;border-radius:10px;font-size:0.88rem;margin-top:10px;}
+  .success{background:#e8f7ee;color:#1a7a42;padding:10px 14px;border-radius:10px;font-size:0.88rem;margin-top:10px;}
+  #loginScreen{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px;}
+  #loginScreen .card{width:100%;max-width:380px;}
+  #appScreen{display:none;}
+  .preview{width:100%;max-height:220px;object-fit:contain;border-radius:10px;margin-top:10px;background:#f4eef7;}
+  .prod-list{display:grid;gap:14px;}
+  .prod-item{
+    display:flex;gap:12px;background:var(--paper);border-radius:14px;padding:12px;
+    box-shadow:0 8px 18px -14px rgba(59,15,79,0.3);align-items:center;
+  }
+  .prod-item img{width:64px;height:64px;object-fit:cover;border-radius:8px;flex-shrink:0;background:#f0eaf3;}
+  .prod-info{flex:1;min-width:0;}
+  .prod-info strong{display:block;font-size:0.95rem;}
+  .prod-info span{display:block;font-size:0.8rem;color:var(--ink-soft);}
+  .section-title{font-size:1.05rem;color:var(--plum);margin:26px 0 14px;}
+  .spinner{
+    display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.4);
+    border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .logout-link{background:none;border:none;color:var(--ink-soft);font-size:0.85rem;text-decoration:underline;cursor:pointer;padding:0;}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{
+    padding:9px 16px;border-radius:999px;border:1.5px solid rgba(59,15,79,0.25);
+    background:#fff;color:var(--ink-soft);font-weight:600;font-size:0.88rem;cursor:pointer;
+  }
+  .chip.selected{
+    background:var(--plum);border-color:var(--plum);color:#fff;
+  }
+  .swatch-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .swatch{
+    width:34px;height:34px;border-radius:50%;cursor:pointer;
+    border:2px solid rgba(59,15,79,0.15);position:relative;
+  }
+  .swatch.selected{
+    border:3px solid var(--magenta);
+    box-shadow:0 0 0 2px #fff inset;
+  }
+  .swatch.selected::after{
+    content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:0.85rem;text-shadow:0 0 3px rgba(0,0,0,0.6);
+  }
+  .prod-actions{display:flex;flex-direction:column;gap:6px;}
+  .prod-actions button{font-size:0.78rem;padding:8px 12px;width:100%;}
+</style>
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="card">
+    <h2 style="color:var(--plum);margin-bottom:6px;">Panel de Iliana</h2>
+    <p style="color:var(--ink-soft);font-size:0.9rem;margin:0 0 6px;">Inicia sesión para administrar tu catálogo.</p>
+    <label>Correo</label>
+    <input type="email" id="loginEmail" autocomplete="username">
+    <label>Contraseña</label>
+    <input type="password" id="loginPassword" autocomplete="current-password">
+    <button class="btn btn-primary" id="loginBtn" style="width:100%;margin-top:18px;">Entrar</button>
+    <div id="loginError"></div>
+  </div>
+</div>
+
+<div id="appScreen">
+  <div class="wrap">
+    <header>
+      <h1>ILIANA <em>admin</em></h1>
+      <button class="logout-link" id="logoutBtn">Cerrar sesión</button>
+    </header>
+
+    <div class="card">
+      <h3 style="color:var(--plum);margin-bottom:4px;">Agregar producto</h3>
+      <p style="color:var(--ink-soft);font-size:0.85rem;margin-top:4px;">Sube la foto, llena los datos y guarda.</p>
+
+      <label>Fotos del producto (hasta 5)</label>
+      <input type="file" id="prodImage" accept="image/*" multiple>
+      <div id="prodPreviewRow" style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;"></div>
+      <p class="hint" id="prodImageHint"></p>
+
+      <label>Nombre</label>
+      <input type="text" id="prodNombre" placeholder="Ej. Vestido floral">
+
+      <div class="row">
+        <div>
+          <label>Categoría</label>
+          <select id="prodCategoria"></select>
+        </div>
+        <div id="temporadaWrap">
+          <label>Temporada</label>
+          <select id="prodTemporada">
+            <option value="">Sin temporada</option>
+            <option value="Primavera-Verano">Primavera-Verano</option>
+            <option value="Otoño-Invierno">Otoño-Invierno</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Precio (MXN)</label>
+      <input type="number" id="prodPrecio" placeholder="Ej. 350" min="0" step="0.01">
+
+      <div id="tallasColoresWrap">
+        <label id="tallasLabel">Tallas disponibles</label>
+        <div class="chip-row" id="tallasRow"></div>
+        <p class="hint" id="tallasHint">Toca las que apliquen (puedes dejarlo vacío si no aplica).</p>
+
+        <label>Color</label>
+        <div class="swatch-row" id="coloresRow"></div>
+        <p class="hint" id="colorHint">Ninguno seleccionado.</p>
+      </div>
+
+      <label>Descripción breve</label>
+      <textarea id="prodDescripcion" placeholder="Una o dos líneas sobre el producto..."></textarea>
+
+      <div id="editingImagesNote" class="hint" style="display:none;"></div>
+
+      <div style="display:flex; gap:10px; margin-top:18px;">
+        <button class="btn btn-primary" id="saveBtn" style="flex:1;">Guardar producto</button>
+        <button class="btn btn-ghost" id="cancelEditBtn" style="display:none;">Cancelar</button>
+      </div>
+      <div id="saveMsg"></div>
+    </div>
+
+    <h3 class="section-title">Tu catálogo</h3>
+    <div id="prodList" class="prod-list"></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyA8u4qocfVvhtmyFI9clAQRoNznkaQ4Gsk",
+  authDomain: "iliana-fashion-more.firebaseapp.com",
+  projectId: "iliana-fashion-more",
+  storageBucket: "iliana-fashion-more.firebasestorage.app",
+  messagingSenderId: "769858774697",
+  appId: "1:769858774697:web:d2d58c62402f4fd4612bb8"
+};
+
+const CLOUDINARY_CLOUD_NAME = "uieups5f";
+const CLOUDINARY_UPLOAD_PRESET = "iliana_productos";
+
+const CATEGORIAS = [
+  { id: "dama", nombre: "Dama", temporada: true },
+  { id: "nino", nombre: "Niño", temporada: true },
+  { id: "nina", nombre: "Niña", temporada: true },
+  { id: "caballero", nombre: "Caballero", temporada: true },
+  { id: "moda-alternativa", nombre: "Moda alternativa", temporada: true },
+  { id: "joyeria", nombre: "Joyería", temporada: false },
+  { id: "calzado", nombre: "Calzado", temporada: true },
+  { id: "accesorios", nombre: "Accesorios", temporada: false },
+  { id: "hogar", nombre: "Hogar", temporada: false },
+  { id: "papeleria", nombre: "Papelería", temporada: false },
+  { id: "otros", nombre: "Otros", temporada: false },
+];
+
+const COLORES = [
+  { n: "Negro", c: "#000000" },
+  { n: "Blanco", c: "#FFFFFF" },
+  { n: "Gris claro", c: "#D9D9D9" },
+  { n: "Gris", c: "#9E9E9E" },
+  { n: "Gris Oxford", c: "#41424C" },
+  { n: "Azul marino", c: "#1B2A4A" },
+  { n: "Rojo", c: "#D32F2F" },
+  { n: "Guinda", c: "#7B1E3A" },
+  { n: "Amarillo", c: "#F4C430" },
+  { n: "Verde militar", c: "#4B5320" },
+  { n: "Verde", c: "#2E7D32" },
+  { n: "Lila", c: "#C8A2C8" },
+  { n: "Morado", c: "#6A1B9A" },
+  { n: "Rosa claro", c: "#F8BBD0" },
+  { n: "Rosa", c: "#EC407A" },
+  { n: "Rosa fuerte", c: "#E91E63" },
+  { n: "Mostaza", c: "#D4A017" },
+  { n: "Chedrón", c: "#C19A6B" },
+  { n: "Beige", c: "#E8DCCA" },
+  { n: "Café", c: "#5D4037" },
+];
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const loginScreen = document.getElementById('loginScreen');
+const appScreen = document.getElementById('appScreen');
+const loginError = document.getElementById('loginError');
+
+document.getElementById('loginBtn').addEventListener('click', async () => {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  loginError.innerHTML = '';
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+  } catch (err) {
+    loginError.innerHTML = `<div class="error">No se pudo entrar: ${err.message}</div>`;
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', () => auth.signOut());
+
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    loginScreen.style.display = 'none';
+    appScreen.style.display = 'block';
+    cargarProductos();
+  } else {
+    loginScreen.style.display = 'flex';
+    appScreen.style.display = 'none';
+  }
+});
+
+// --- Poblar categorías ---
+const catSelect = document.getElementById('prodCategoria');
+CATEGORIAS.forEach(c => {
+  const opt = document.createElement('option');
+  opt.value = c.id;
+  opt.textContent = c.nombre;
+  catSelect.appendChild(opt);
+});
+function actualizarTemporadaVisibilidad() {
+  const cat = CATEGORIAS.find(c => c.id === catSelect.value);
+  document.getElementById('temporadaWrap').style.display = cat && cat.temporada ? 'block' : 'none';
+}
+
+const CATEGORIAS_TALLA_LETRA = ['dama', 'nino', 'nina', 'caballero'];
+const CATEGORIAS_TALLA_NUMERO = ['calzado'];
+const TALLAS_LETRA = ['XS', 'S', 'M', 'L', 'XL'];
+
+function generarTallasChips() {
+  const cat = catSelect.value;
+  let tallas = [];
+  if (CATEGORIAS_TALLA_LETRA.includes(cat)) {
+    tallas = TALLAS_LETRA;
+  } else if (CATEGORIAS_TALLA_NUMERO.includes(cat)) {
+    tallas = [];
+    for (let n = 8; n <= 32; n++) tallas.push(String(n));
+  }
+  tallasRow.innerHTML = '';
+  tallas.forEach(t => {
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'chip';
+    chip.dataset.talla = t;
+    chip.textContent = t;
+    chip.addEventListener('click', () => chip.classList.toggle('selected'));
+    tallasRow.appendChild(chip);
+  });
+}
+
+function actualizarTallasColoresVisibilidad() {
+  const cat = catSelect.value;
+  const mostrar = CATEGORIAS_TALLA_LETRA.includes(cat) || CATEGORIAS_TALLA_NUMERO.includes(cat);
+  document.getElementById('tallasColoresWrap').style.display = mostrar ? 'block' : 'none';
+  document.getElementById('tallasLabel').textContent = CATEGORIAS_TALLA_NUMERO.includes(cat) ? 'Números disponibles' : 'Tallas disponibles';
+  document.getElementById('tallasHint').textContent = CATEGORIAS_TALLA_NUMERO.includes(cat)
+    ? 'Toca los números que apliquen (puedes dejarlo vacío si no aplica).'
+    : 'Toca las que apliquen (puedes dejarlo vacío si no aplica).';
+  generarTallasChips();
+}
+
+catSelect.addEventListener('change', () => {
+  actualizarTemporadaVisibilidad();
+  actualizarTallasColoresVisibilidad();
+});
+actualizarTemporadaVisibilidad();
+
+// --- Tallas (selección múltiple tipo chip, generadas según categoría) ---
+const tallasRow = document.getElementById('tallasRow');
+actualizarTallasColoresVisibilidad();
+function getTallasSeleccionadas() {
+  return Array.from(tallasRow.querySelectorAll('.chip.selected')).map(c => c.dataset.talla);
+}
+function setTallasSeleccionadas(tallas) {
+  generarTallasChips();
+  tallasRow.querySelectorAll('.chip').forEach(chip => {
+    chip.classList.toggle('selected', (tallas || []).includes(chip.dataset.talla));
+  });
+}
+
+// --- Colores (selección única tipo paleta) ---
+const coloresRow = document.getElementById('coloresRow');
+const colorHint = document.getElementById('colorHint');
+let colorSeleccionado = null;
+COLORES.forEach(col => {
+  const sw = document.createElement('div');
+  sw.className = 'swatch';
+  sw.style.background = col.c;
+  sw.title = col.n;
+  sw.dataset.nombre = col.n;
+  if (col.n === 'Blanco') sw.style.border = '2px solid rgba(59,15,79,0.3)';
+  sw.addEventListener('click', () => {
+    const yaEstaba = colorSeleccionado === col.n;
+    coloresRow.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+    if (yaEstaba) {
+      colorSeleccionado = null;
+      colorHint.textContent = 'Ninguno seleccionado.';
+    } else {
+      sw.classList.add('selected');
+      colorSeleccionado = col.n;
+      colorHint.textContent = `Color: ${col.n}`;
+    }
+  });
+  coloresRow.appendChild(sw);
+});
+function setColorSeleccionado(nombre) {
+  colorSeleccionado = nombre || null;
+  coloresRow.querySelectorAll('.swatch').forEach(s => {
+    s.classList.toggle('selected', s.dataset.nombre === nombre);
+  });
+  colorHint.textContent = nombre ? `Color: ${nombre}` : 'Ninguno seleccionado.';
+}
+
+// --- Preview de imágenes (hasta 5) ---
+const fileInput = document.getElementById('prodImage');
+const previewRow = document.getElementById('prodPreviewRow');
+const imageHint = document.getElementById('prodImageHint');
+fileInput.addEventListener('change', () => {
+  previewRow.innerHTML = '';
+  const files = Array.from(fileInput.files).slice(0, 5);
+  if (files.length < fileInput.files.length) {
+    imageHint.textContent = 'Solo se usarán las primeras 5 fotos seleccionadas.';
+  } else {
+    imageHint.textContent = files.length ? `${files.length} foto(s) seleccionada(s).` : '';
+  }
+  files.forEach(file => {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.style.cssText = 'width:70px;height:70px;object-fit:cover;border-radius:10px;background:#f4eef7;';
+    previewRow.appendChild(img);
+  });
+});
+
+// --- Subir a Cloudinary ---
+async function subirImagen(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+    method: 'POST',
+    body: formData
+  });
+  if (!res.ok) throw new Error('Error al subir la imagen');
+  const data = await res.json();
+  return data.secure_url;
+}
+
+async function subirImagenes(files) {
+  const urls = [];
+  for (const file of files) {
+    const url = await subirImagen(file);
+    urls.push(url);
+  }
+  return urls;
+}
+
+// --- Guardar / actualizar producto ---
+const saveBtn = document.getElementById('saveBtn');
+const cancelEditBtn = document.getElementById('cancelEditBtn');
+const saveMsg = document.getElementById('saveMsg');
+const editingImagesNote = document.getElementById('editingImagesNote');
+let editingId = null;
+let editingImagenesExistentes = [];
+
+function limpiarFormulario() {
+  document.getElementById('prodNombre').value = '';
+  document.getElementById('prodPrecio').value = '';
+  document.getElementById('prodDescripcion').value = '';
+  catSelect.selectedIndex = 0;
+  actualizarTemporadaVisibilidad();
+  actualizarTallasColoresVisibilidad();
+  document.getElementById('prodTemporada').value = '';
+  fileInput.value = '';
+  previewRow.innerHTML = '';
+  imageHint.textContent = '';
+  setTallasSeleccionadas([]);
+  setColorSeleccionado(null);
+  editingId = null;
+  editingImagenesExistentes = [];
+  editingImagesNote.style.display = 'none';
+  saveBtn.textContent = 'Guardar producto';
+  cancelEditBtn.style.display = 'none';
+}
+
+cancelEditBtn.addEventListener('click', () => {
+  limpiarFormulario();
+  saveMsg.innerHTML = '';
+});
+
+function iniciarEdicion(id, p) {
+  editingId = id;
+  editingImagenesExistentes = (p.imagenes && p.imagenes.length ? p.imagenes : [p.imagenUrl]).filter(Boolean);
+  document.getElementById('prodNombre').value = p.nombre || '';
+  catSelect.value = p.categoria || '';
+  actualizarTemporadaVisibilidad();
+  actualizarTallasColoresVisibilidad();
+  document.getElementById('prodTemporada').value = p.temporada || '';
+  document.getElementById('prodPrecio').value = p.precio || '';
+  document.getElementById('prodDescripcion').value = p.descripcion || '';
+  setTallasSeleccionadas(p.tallas || []);
+  setColorSeleccionado(p.color || null);
+  fileInput.value = '';
+  previewRow.innerHTML = '';
+  imageHint.textContent = '';
+  editingImagesNote.style.display = 'block';
+  editingImagesNote.textContent = `Este producto ya tiene ${editingImagenesExistentes.length} foto(s). Si subes fotos nuevas arriba, van a reemplazar a las anteriores; si no subes ninguna, se conservan las que ya tiene.`;
+  saveBtn.textContent = 'Actualizar producto';
+  cancelEditBtn.style.display = 'inline-flex';
+  saveMsg.innerHTML = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+saveBtn.addEventListener('click', async () => {
+  const nombre = document.getElementById('prodNombre').value.trim();
+  const categoria = catSelect.value;
+  const catObj = CATEGORIAS.find(c => c.id === categoria);
+  const temporada = document.getElementById('prodTemporada').value;
+  const precio = document.getElementById('prodPrecio').value;
+  const descripcion = document.getElementById('prodDescripcion').value.trim();
+  const tallas = getTallasSeleccionadas();
+  const files = Array.from(fileInput.files).slice(0, 5);
+
+  saveMsg.innerHTML = '';
+  if (!nombre || !categoria || !precio) {
+    saveMsg.innerHTML = `<div class="error">Falta el nombre, la categoría o el precio.</div>`;
+    return;
+  }
+  if (!editingId && files.length === 0) {
+    saveMsg.innerHTML = `<div class="error">Falta al menos una foto.</div>`;
+    return;
+  }
+
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = `<span class="spinner"></span> Guardando...`;
+
+  try {
+    let imagenes = editingImagenesExistentes;
+    if (files.length > 0) {
+      imagenes = await subirImagenes(files);
+    }
+    const datos = {
+      nombre, categoria, temporada: temporada || null,
+      precio: parseFloat(precio), descripcion,
+      tallas, color: colorSeleccionado || null,
+      imagenes, imagenUrl: imagenes[0]
+    };
+
+    if (editingId) {
+      await db.collection('productos').doc(editingId).update(datos);
+      saveMsg.innerHTML = `<div class="success">Producto actualizado ✓</div>`;
+    } else {
+      datos.creado = firebase.firestore.FieldValue.serverTimestamp();
+      await db.collection('productos').add(datos);
+      saveMsg.innerHTML = `<div class="success">Producto guardado ✓</div>`;
+    }
+    limpiarFormulario();
+    cargarProductos();
+  } catch (err) {
+    saveMsg.innerHTML = `<div class="error">Algo falló al guardar: ${err.message}</div>`;
+  } finally {
+    saveBtn.disabled = false;
+    if (!editingId) saveBtn.textContent = 'Guardar producto';
+  }
+});
+
+// --- Listar / borrar productos ---
+async function cargarProductos() {
+  const list = document.getElementById('prodList');
+  list.innerHTML = '<p style="color:var(--ink-soft);">Cargando...</p>';
+  try {
+    const snap = await db.collection('productos').orderBy('creado', 'desc').get();
+    if (snap.empty) {
+      list.innerHTML = '<p style="color:var(--ink-soft);">Aún no hay productos.</p>';
+      return;
+    }
+    list.innerHTML = '';
+    snap.forEach(docSnap => {
+      const p = docSnap.data();
+      const catNombre = (CATEGORIAS.find(c => c.id === p.categoria) || {}).nombre || p.categoria;
+      const primerImg = (p.imagenes && p.imagenes[0]) || p.imagenUrl;
+      const totalImgs = p.imagenes ? p.imagenes.length : 1;
+      const item = document.createElement('div');
+      item.className = 'prod-item';
+      item.innerHTML = `
+        <img src="${primerImg}" alt="${p.nombre}">
+        <div class="prod-info">
+          <strong>${p.nombre}</strong>
+          <span>${totalImgs} foto(s)</span>
+          <span>${catNombre}${p.temporada ? ' · ' + p.temporada : ''}</span>
+          <span>$${Number(p.precio).toFixed(2)} MXN</span>
+        </div>
+        <div class="prod-actions">
+          <button class="btn btn-ghost" data-action="editar">Editar</button>
+          <button class="btn btn-danger" data-action="borrar">Borrar</button>
+        </div>
+      `;
+      item.querySelector('[data-action="editar"]').addEventListener('click', () => {
+        iniciarEdicion(docSnap.id, p);
+      });
+      item.querySelector('[data-action="borrar"]').addEventListener('click', async (e) => {
+        if (!confirm(`¿Borrar "${p.nombre}"?`)) return;
+        e.target.disabled = true;
+        await db.collection('productos').doc(docSnap.id).delete();
+        cargarProductos();
+      });
+      list.appendChild(item);
+    });
+  } catch (err) {
+    list.innerHTML = `<p class="error">No se pudo cargar el catálogo: ${err.message}</p>`;
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iliana Fashion &amp; More</title>
+<meta name="description" content="Iliana Fashion & More — moda para toda la familia: dama, niño, niña, caballero, moda alternativa, joyería, calzado, accesorios, hogar y papelería.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#3B0F4F;
+    --plum-light:#6C4A7E;
+    --magenta:#C81A6D;
+    --orange:#F0952B;
+    --hotpink:#EC1876;
+    --cream:#FBF6F1;
+    --paper:#FFFDFB;
+    --ink:#241129;
+    --ink-soft:#5B4A63;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:0.01em;
+    margin:0;
+  }
+  a{color:inherit;}
+  :focus-visible{
+    outline:3px solid var(--orange);
+    outline-offset:3px;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* NAV */
+  .nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(251,246,241,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(59,15,79,0.08);
+  }
+  .nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:14px;
+    padding-bottom:14px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+  }
+  .brand img{
+    height:40px;
+    width:auto;
+    display:block;
+  }
+  .brand-word{
+    font-family:'Fraunces', serif;
+    font-size:1.25rem;
+    color:var(--plum);
+    line-height:1;
+  }
+  .brand-word em{
+    display:block;
+    font-style:italic;
+    font-size:0.62rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--magenta);
+    margin-top:2px;
+  }
+  .navlinks{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    margin:0;
+    padding:0;
+    font-size:0.92rem;
+    font-weight:500;
+  }
+  .navlinks a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    padding:6px 2px;
+    border-bottom:2px solid transparent;
+    transition:color .2s, border-color .2s;
+  }
+  .navlinks a:hover{
+    color:var(--plum);
+    border-color:var(--orange);
+  }
+  .navtoggle{display:none;}
+  .nav-social{
+    display:flex;
+    gap:10px;
+  }
+  .social-btn{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    transition:transform .18s ease;
+  }
+  .social-btn svg{width:19px;height:19px;fill:#fff;}
+  .social-btn:hover{transform:translateY(-2px);}
+  .social-btn.wa{background:#25D366;}
+  .social-btn.fb{background:var(--plum);}
+
+  .wa-float{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    z-index:60;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#25D366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    box-shadow:0 14px 28px -10px rgba(37,211,102,0.6);
+    animation:wafloat 2.4s ease-in-out infinite;
+  }
+  .wa-float svg{width:28px;height:28px;fill:#fff;}
+  @keyframes wafloat{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-6px);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .wa-float{animation:none;}
+  }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    padding:60px 0 8px;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    align-items:center;
+    gap:40px;
+  }
+  .eyebrow{
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--magenta);
+    font-weight:600;
+    margin-bottom:14px;
+    display:block;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 3.7rem);
+    color:var(--plum);
+    line-height:1.04;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--hotpink);
+  }
+  .hero p{
+    margin-top:20px;
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    max-width:46ch;
+    line-height:1.6;
+  }
+  .hero-ctas{
+    margin-top:32px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 26px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:0.95rem;
+    text-decoration:none;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{
+    background:var(--magenta);
+    color:#fff;
+    box-shadow:0 10px 24px -10px rgba(200,26,109,0.6);
+  }
+  .btn-ghost{
+    border-color:var(--plum);
+    color:var(--plum);
+    background:transparent;
+  }
+
+  /* hero bag stack visual */
+  .bagstack{
+    position:relative;
+    height:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .hero-logo-block{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .hero-logo-img{
+    width:100%;
+    max-width:220px;
+    height:auto;
+    border-radius:50%;
+    box-shadow:0 24px 48px -20px rgba(59,15,79,0.4);
+    animation:heroFloat 5s ease-in-out infinite;
+  }
+  .hero-brand-word{
+    font-size:1.7rem;
+    text-align:center;
+    color:var(--plum);
+  }
+  .hero-brand-word em{
+    font-size:0.66rem;
+    letter-spacing:0.12em;
+  }
+  @keyframes heroFloat{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-logo-img{animation:none;}
+  }
+  .bag{
+    position:relative;
+    border-radius:8px 8px 2px 2px;
+    box-shadow:0 18px 30px -14px rgba(59,15,79,0.35);
+  }
+  .bag::before{
+    content:"";
+    position:absolute;
+    top:-26px;
+    left:50%;
+    transform:translateX(-50%);
+    width:46%;
+    height:34px;
+    border:5px solid inherit;
+    border-bottom:none;
+    border-radius:60px 60px 0 0;
+  }
+  .bag.b1{width:120px; height:230px; background:var(--plum); border-color:var(--plum); left:36px; z-index:1;}
+  .bag.b2{width:104px; height:200px; background:var(--plum-light); border-color:var(--plum-light); left:14px; z-index:2; opacity:.92;}
+  .bag.b3{width:96px; height:170px; background:var(--orange); border-color:var(--orange); left:-10px; z-index:3;}
+  .bag.b4{width:84px; height:130px; background:var(--hotpink); border-color:var(--hotpink); left:-28px; z-index:4;}
+  .bagstack .bag{margin-left:-18px;}
+
+  /* SECTION HEADS */
+  .section{padding:44px 0;}
+  .section-head{
+    max-width:640px;
+    margin-bottom:44px;
+  }
+  .section-head .eyebrow{margin-bottom:10px;}
+  .section-head h2{
+    font-size:clamp(1.8rem, 3vw, 2.4rem);
+    color:var(--plum);
+  }
+  .section-head p{
+    margin-top:14px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  /* CATEGORY SHELF */
+  .shelf{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:22px;
+  }
+  .card{
+    perspective:1400px;
+    height:230px;
+  }
+  .card.tall{height:270px;}
+  .card.short{height:196px;}
+  .card-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform .6s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+    cursor:pointer;
+  }
+  .card.is-flipped .card-inner{transform:rotateY(180deg);}
+  .card-face{
+    position:absolute;
+    inset:0;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    border-radius:var(--radius);
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+  }
+  .card-front{
+    background:linear-gradient(160deg, var(--face-a), var(--face-b));
+    color:#fff;
+    box-shadow:0 16px 32px -18px rgba(36,17,41,0.45);
+  }
+  .card-front .icon{
+    position:absolute;
+    top:20px;
+    left:20px;
+    width:34px;
+    height:34px;
+    opacity:0.9;
+  }
+  .card-front .icon svg{width:100%;height:100%;stroke:#fff;fill:none;stroke-width:1.6;}
+  .card-front h3{
+    font-size:1.3rem;
+    color:#fff;
+  }
+  .card-front .tag{
+    font-size:0.74rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    opacity:0.85;
+    margin-top:4px;
+    display:block;
+  }
+  .card-back{
+    background:var(--paper);
+    border:1.5px solid rgba(59,15,79,0.14);
+    transform:rotateY(180deg);
+    justify-content:center;
+    gap:10px;
+  }
+  .card-back h4{
+    font-family:'Fraunces', serif;
+    font-size:1.02rem;
+    color:var(--plum);
+    margin-bottom:2px;
+  }
+  .season-btn, .plain-btn{
+    display:block;
+    text-decoration:none;
+    background:transparent;
+    border:1.5px solid var(--plum);
+    color:var(--plum);
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:0.88rem;
+    font-weight:600;
+    text-align:left;
+    transition:background .18s, color .18s;
+  }
+  .season-btn:hover, .plain-btn:hover{
+    background:var(--plum);
+    color:#fff;
+  }
+  .card-back .hint{
+    font-size:0.76rem;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+
+  /* ABOUT */
+  .about{
+    background:var(--plum);
+    color:#fff;
+    border-radius:28px;
+    margin:0 28px;
+    padding:64px 44px;
+  }
+  .about .wrap{
+    max-width:1120px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    padding:0;
+  }
+  .about h2{
+    color:#fff;
+    font-size:clamp(1.6rem,2.6vw,2.1rem);
+  }
+  .about p{
+    color:rgba(255,255,255,0.82);
+    line-height:1.7;
+    margin-top:16px;
+  }
+  .pillars{
+    display:grid;
+    gap:18px;
+  }
+  .pillar{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:14px;
+    padding:18px 20px;
+  }
+  .pillar span{
+    display:block;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--orange);
+    margin-bottom:6px;
+    font-weight:700;
+  }
+
+  /* FOOTER */
+  footer{
+    padding:60px 0 40px;
+  }
+  .foot-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:32px;
+    padding-bottom:36px;
+    border-bottom:1px solid rgba(59,15,79,0.14);
+  }
+  .foot-brand p{
+    color:var(--ink-soft);
+    margin-top:14px;
+    line-height:1.6;
+    max-width:34ch;
+  }
+  footer h5{
+    font-family:'Fraunces', serif;
+    color:var(--plum);
+    font-size:0.95rem;
+    margin-bottom:14px;
+  }
+  footer ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:grid;
+    gap:10px;
+  }
+  footer ul a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-size:0.92rem;
+  }
+  footer ul a:hover{color:var(--magenta);}
+  .foot-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:22px;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  @media (max-width:900px){
+    .shelf{grid-template-columns:repeat(2,1fr);}
+    .hero .wrap{grid-template-columns:1fr;}
+    .bagstack{margin-top:20px; height:240px;}
+    .about .wrap{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:640px){
+    .navlinks{display:none;}
+    .shelf{grid-template-columns:1fr 1fr;}
+    .card, .card.tall, .card.short{height:200px;}
+    .about{margin:0 14px; padding:44px 24px;}
+    .foot-grid{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .card-inner{transition:none;}
+  }
+
+  /* MODAL DE PRODUCTOS */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:100;
+    background:rgba(36,17,41,0.55);
+    display:flex;
+    align-items:flex-end;justify-content:center;
+    padding:0;
+    perspective:1600px;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .3s ease, visibility 0s linear .3s;
+  }
+  .modal-overlay.is-open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transition:opacity .3s ease, visibility 0s linear 0s;
+  }
+  .modal-box{
+    background:var(--paper);
+    width:100%;max-width:640px;
+    max-height:85vh;
+    border-radius:24px 24px 0 0;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+    transform-origin:left center;
+    transform:rotateY(-100deg);
+    box-shadow:-14px 0 30px -12px rgba(0,0,0,0.35);
+    transition:transform .5s cubic-bezier(.25,.75,.35,1);
+  }
+  .modal-overlay.is-open .modal-box{
+    transform:rotateY(0deg);
+  }
+  @media (min-width:700px){
+    .modal-overlay{align-items:center;}
+    .modal-box{border-radius:24px;max-height:80vh;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .modal-box{transition:none;}
+    .modal-overlay{transition:none;}
+  }
+  .modal-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 22px;border-bottom:1px solid rgba(59,15,79,0.1);
+  }
+  .modal-head h3{color:var(--plum);font-size:1.15rem;}
+  .modal-close{
+    background:none;border:none;font-size:1.6rem;line-height:1;color:var(--ink-soft);
+    cursor:pointer;padding:4px 8px;
+  }
+  .modal-body{
+    padding:18px 22px 26px;overflow-y:auto;
+  }
+  .modal-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  }
+  @media (min-width:520px){
+    .modal-grid{grid-template-columns:1fr 1fr 1fr;}
+  }
+  .prod-card{
+    background:var(--cream);border-radius:14px;overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .prod-card img{width:100%;aspect-ratio:1;object-fit:cover;background:#eee2ec;display:block;}
+  .prod-card-img-wrap{position:relative; cursor:zoom-in;}
+  .prod-card-count{
+    position:absolute; bottom:6px; right:6px;
+    background:rgba(36,17,41,0.65); color:#fff;
+    font-size:0.68rem; padding:2px 7px; border-radius:999px;
+  }
+  .prod-card-body{padding:10px 12px 14px;}
+  .prod-card-body strong{display:block;font-size:0.9rem;color:var(--ink);margin-bottom:2px;}
+  .prod-card-body .price{color:var(--magenta);font-weight:700;font-size:0.92rem;}
+  .prod-card-body p{font-size:0.78rem;color:var(--ink-soft);margin:4px 0 0;line-height:1.4;}
+  .prod-card-body .prod-meta{display:block;font-size:0.74rem;color:var(--plum-light);margin-top:2px;}
+
+  /* LIGHTBOX (visor de fotos con zoom) */
+  .lightbox{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(10,4,12,0.92);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .25s ease, visibility 0s linear .25s;
+  }
+  .lightbox.is-open{
+    opacity:1; visibility:visible; pointer-events:auto;
+    transition:opacity .25s ease, visibility 0s linear 0s;
+  }
+  .lightbox-stage{
+    width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    overflow:auto;
+    padding:60px 16px;
+  }
+  .lightbox-stage img{
+    max-width:100%; max-height:100%;
+    object-fit:contain;
+    cursor:zoom-in;
+    transition:transform .3s ease;
+    border-radius:8px;
+    touch-action:pinch-zoom;
+  }
+  .lightbox-stage img.zoomed{
+    max-width:none; max-height:none;
+    transform:scale(2.2);
+    cursor:zoom-out;
+  }
+  .lightbox-close{
+    position:absolute; top:16px; right:16px;
+    background:rgba(255,255,255,0.9); color:var(--plum);
+    border:none; width:42px; height:42px; border-radius:50%;
+    font-size:1.6rem; line-height:1; cursor:pointer; z-index:5;
+    box-shadow:0 6px 18px rgba(0,0,0,0.35);
+  }
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(255,255,255,0.9); color:var(--plum);
+    border:none; width:48px; height:48px; border-radius:50%;
+    font-size:1.3rem; font-weight:700; cursor:pointer; z-index:5;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.35);
+  }
+  .lightbox-prev{left:12px;}
+  .lightbox-next{right:12px;}
+  .lightbox-count{
+    position:absolute; bottom:18px; left:50%; transform:translateX(-50%);
+    color:#fff; font-size:0.85rem; background:rgba(255,255,255,0.14);
+    padding:4px 12px; border-radius:999px;
+  }
+  .lightbox-hint{
+    position:absolute; top:16px; left:16px;
+    color:rgba(255,255,255,0.7); font-size:0.75rem;
+  }
+  @media (max-width:640px){
+    .lightbox-hint{display:none;}
+  }
+  .modal-empty, .modal-loading{
+    text-align:center;color:var(--ink-soft);padding:30px 10px;font-size:0.95rem;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <img src="logo-bolsas.jpg" alt="Iliana Fashion & More" onerror="this.style.display='none'">
+      <span class="brand-word">ILIANA<em>Fashion &amp; More</em></span>
+    </a>
+    <nav>
+      <ul class="navlinks">
+        <li><a href="#categorias">Categorías</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="nav-social">
+      <a class="social-btn wa" href="https://wa.me/528673085118" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z"/><path d="M8.5 8.7c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4-.1.5l-.5.6c-.2.2-.1.4 0 .6.5.9 1.4 1.8 2.3 2.3.2.1.4.2.6 0l.6-.5c.1-.1.3-.2.5-.1l1.7.7c.5.2.5.4.5.6v.5c0 .3-.4 1-1.4 1.2-1 .2-2.3-.1-4-1.4-1.7-1.3-2.8-2.9-3.2-4-.4-1.1-.2-1.9.1-2.4z"/></svg>
+      </a>
+      <a class="social-btn fb" href="https://www.facebook.com/share/19C8sT9pK9/" id="fbLink" target="_blank" rel="noopener" aria-label="Síguenos en Facebook">
+        <svg viewBox="0 0 24 24"><path d="M15 3h-3a5 5 0 00-5 5v3H4v4h3v6h4v-6h3l1-4h-4V8a1 1 0 011-1h3z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Dama · Niño · Niña · Caballero · y más</span>
+        <h1>Moda con <em>estilo</em>.</h1>
+        <p>Ropa, moda alternativa, calzado, joyería, accesorios, hogar y papelería — organizados por categoría y por temporada, para que encuentres justo lo que buscas.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#categorias">Ver categorías</a>
+          <a class="btn btn-ghost" href="#nosotros">Conócenos</a>
+        </div>
+      </div>
+      <div class="bagstack" aria-hidden="true">
+        <div class="hero-logo-block">
+          <img src="logo-flores.jpg" alt="Iliana Fashion & More" class="hero-logo-img" onerror="this.parentElement.style.display='none'">
+          <span class="brand-word hero-brand-word">ILIANA<em>Fashion &amp; More</em></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="categorias">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Catálogo</span>
+        <h2>Explora por categoría</h2>
+        <p>Toca cada tarjeta para abrirla y ver sus temporadas o su colección. Así de fácil.</p>
+      </div>
+
+      <div class="shelf" id="shelf"></div>
+    </div>
+  </section>
+
+  <section class="section" id="nosotros">
+    <div class="about">
+      <div class="wrap">
+        <div>
+          <span class="eyebrow" style="color:var(--orange)">Desde 2019</span>
+          <h2>Somos Iliana Fashion &amp; More</h2>
+          <p>Nacimos para vestir a toda la familia con estilo y calidad, sin complicarte la búsqueda. Cada categoría de nuestro catálogo está pensada para que encuentres rápido lo que necesitas, temporada tras temporada.</p>
+        </div>
+        <div class="pillars">
+          <div class="pillar">
+            <span>Misión</span>
+            En Iliana Fashion &amp; More ofrecemos moda, accesorios y productos complementarios de calidad, pensados para realzar la belleza y confianza de cada mujer, brindando una experiencia de compra cercana, accesible y con atención personalizada.
+          </div>
+          <div class="pillar">
+            <span>Visión</span>
+            Ser la boutique de referencia en moda y accesorios, reconocida por la calidez en el servicio, la variedad de sus productos y su capacidad de adaptarse a las tendencias, expandiendo su presencia más allá de sus raíces desde 2019.
+          </div>
+          <div class="pillar">
+            <span>Valores</span>
+            <strong style="color:var(--hotpink);">Elegancia</strong> — buen gusto en cada prenda y accesorio.<br>
+            <strong style="color:var(--hotpink);">Cercanía</strong> — trato cálido y personalizado.<br>
+            <strong style="color:var(--hotpink);">Confianza</strong> — honestidad en precio y calidad.<br>
+            <strong style="color:var(--hotpink);">Innovación</strong> — catálogo siempre a la moda.<br>
+            <strong style="color:var(--hotpink);">Compromiso</strong> — pasión por hacer sentir bien.
+          </div>
+        </div>
+        <div style="grid-column:1 / -1; text-align:center; margin-top:12px; padding-top:28px; border-top:1px solid rgba(255,255,255,0.14);">
+          <span class="brand-word" style="font-size:1.4rem; color:#fff;">ILIANA<em style="color:var(--orange);">Fashion &amp; More</em></span>
+          <p style="color:rgba(255,255,255,0.75); font-style:italic; margin-top:6px; font-family:'Fraunces',serif;">Moda con estilo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <a class="wa-float" href="https://wa.me/528673085118" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z"/><path d="M8.5 8.7c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4-.1.5l-.5.6c-.2.2-.1.4 0 .6.5.9 1.4 1.8 2.3 2.3.2.1.4.2.6 0l.6-.5c.1-.1.3-.2.5-.1l1.7.7c.5.2.5.4.5.6v.5c0 .3-.4 1-1.4 1.2-1 .2-2.3-.1-4-1.4-1.7-1.3-2.8-2.9-3.2-4-.4-1.1-.2-1.9.1-2.4z" fill="#25D366" stroke="none"/></svg>
+  </a>
+
+</main>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modalTitle">Productos</h3>
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
+    </div>
+    <div id="modalBody" class="modal-body"></div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Anterior">&#10094;</button>
+  <div class="lightbox-stage">
+    <img id="lightboxImg" alt="Foto del producto">
+  </div>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Siguiente">&#10095;</button>
+  <span class="lightbox-count" id="lightboxCount"></span>
+  <span class="lightbox-hint">Toca la foto para acercar</span>
+</div>
+
+<footer id="contacto">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="brand-word" style="font-size:1.15rem;">ILIANA<em>Fashion &amp; More</em></span>
+        <p>Ropa para toda la familia, moda alternativa, calzado, joyería, accesorios, hogar y papelería.</p>
+      </div>
+      <div>
+        <h5>Categorías</h5>
+        <ul>
+          <li><a href="#categorias">Dama &amp; Caballero</a></li>
+          <li><a href="#categorias">Niño &amp; Niña</a></li>
+          <li><a href="#categorias">Moda alternativa</a></li>
+          <li><a href="#categorias">Joyería &amp; calzado</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contacto</h5>
+        <ul>
+          <li><a href="https://wa.me/528673085118" target="_blank" rel="noopener">WhatsApp: 867 308 5118</a></li>
+          <li><a href="https://www.facebook.com/share/19C8sT9pK9/" id="fbLinkFooter" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="#nosotros">Nuestra historia</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Iliana Fashion &amp; More.</span>
+      <span>Hecho con cariño para nuestra comunidad.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyA8u4qocfVvhtmyFI9clAQRoNznkaQ4Gsk",
+  authDomain: "iliana-fashion-more.firebaseapp.com",
+  projectId: "iliana-fashion-more",
+  storageBucket: "iliana-fashion-more.firebasestorage.app",
+  messagingSenderId: "769858774697",
+  appId: "1:769858774697:web:d2d58c62402f4fd4612bb8"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+
+  const categorias = [
+    { id:"dama", nombre:"Dama", tag:"Ropa", size:"tall", colors:["#6C4A7E","#3B0F4F"], seasons:true,
+      icon:'<svg viewBox="0 0 24 24"><path d="M9 3l3 2 3-2 1 4-2 2 1 12H8L9 9 7 7z"/></svg>' },
+    { id:"nino", nombre:"Niño", tag:"Ropa", size:"medium", colors:["#F0952B","#C8721A"], seasons:true,
+      icon:'<svg viewBox="0 0 24 24"><path d="M6 4l6 2 6-2 3 5-4 2v11H7V11L3 9z"/></svg>' },
+    { id:"nina", nombre:"Niña", tag:"Ropa", size:"short", colors:["#EC1876","#C81A6D"], seasons:true,
+      icon:'<svg viewBox="0 0 24 24"><path d="M12 3l1.8 3.6L18 7l-3 3 1 4-4-2-4 2 1-4-3-3 4.2-.4z"/></svg>' },
+    { id:"caballero", nombre:"Caballero", tag:"Ropa", size:"tall", colors:["#3B0F4F","#241129"], seasons:true,
+      icon:'<svg viewBox="0 0 24 24"><path d="M6 4l6 2 6-2 2 4-3 2v12H7V10L4 8z"/><path d="M12 6l-1.4 4L12 20l1.4-10z"/></svg>' },
+    { id:"moda-alternativa", nombre:"Moda alternativa", tag:"Estilo propio", size:"medium", colors:["#241129","#EC1876"], seasons:true,
+      icon:'<svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 10-13h-6z"/></svg>' },
+    { id:"joyeria", nombre:"Joyería", tag:"Accesorios", size:"short", colors:["#C81A6D","#F0952B"], seasons:false,
+      icon:'<svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M9 3l3 6 3-6"/></svg>' },
+    { id:"calzado", nombre:"Calzado", tag:"Zapatos", size:"tall", colors:["#F0952B","#EC1876"], seasons:true,
+      icon:'<svg viewBox="0 0 24 24"><path d="M4 18v-4l4-1 3-4 5 2 1 3h4c1 0 2 1 2 3v1z"/></svg>' },
+    { id:"accesorios", nombre:"Accesorios", tag:"Complementos", size:"medium", colors:["#6C4A7E","#EC1876"], seasons:false,
+      icon:'<svg viewBox="0 0 24 24"><path d="M5 8a7 7 0 0114 0v3a7 7 0 01-14 0z"/><path d="M2 11h3M19 11h3"/></svg>' },
+    { id:"hogar", nombre:"Hogar", tag:"Casa &amp; decoración", size:"short", colors:["#3B0F4F","#6C4A7E"], seasons:false,
+      icon:'<svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/></svg>' },
+    { id:"papeleria", nombre:"Papelería", tag:"Oficina &amp; escuela", size:"tall", colors:["#C81A6D","#3B0F4F"], seasons:false,
+      icon:'<svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M15 3v3h3M9 11h6M9 15h6"/></svg>' },
+    { id:"otros", nombre:"Otros", tag:"Un poco de todo", size:"medium", colors:["#F0952B","#3B0F4F"], seasons:false,
+      icon:'<svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>' },
+  ];
+
+  const shelf = document.getElementById('shelf');
+
+  categorias.forEach((cat, i) => {
+    const card = document.createElement('div');
+    card.className = `card ${cat.size}`;
+    card.setAttribute('tabindex','0');
+    card.setAttribute('role','button');
+    card.setAttribute('aria-expanded','false');
+    card.setAttribute('aria-label', `Categoría ${cat.nombre}, toca para ver detalles`);
+
+    const backContent = cat.seasons
+      ? `<h4>${cat.nombre}</h4>
+         <button class="season-btn" data-cat="${cat.id}" data-season="Primavera-Verano">Primavera &middot; Verano</button>
+         <button class="season-btn" data-cat="${cat.id}" data-season="Otoño-Invierno">Otoño &middot; Invierno</button>
+         <button class="plain-btn" data-cat="${cat.id}" data-season="__todo__">Ver todo</button>
+         <p class="hint">Selecciona una temporada</p>`
+      : `<h4>${cat.nombre}</h4>
+         <button class="plain-btn" data-cat="${cat.id}" data-season="">Ver colección completa</button>
+         <p class="hint">${cat.tag}</p>`;
+
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-face card-front" style="--face-a:${cat.colors[0]};--face-b:${cat.colors[1]}">
+          <div class="icon">${cat.icon}</div>
+          <span class="tag">${cat.tag}</span>
+          <h3>${cat.nombre}</h3>
+        </div>
+        <div class="card-face card-back">
+          ${backContent}
+        </div>
+      </div>
+    `;
+
+    function toggle(){
+      const flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+    }
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('button[data-cat]')) return;
+      toggle();
+    });
+    card.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' '){
+        if (e.target.closest('button[data-cat]')) return;
+        e.preventDefault();
+        toggle();
+      }
+    });
+
+    shelf.appendChild(card);
+  });
+
+  // --- Modal de productos ---
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.getElementById('modalBody');
+  const modalClose = document.getElementById('modalClose');
+
+  function abrirModal(){ modalOverlay.classList.add('is-open'); }
+  function cerrarModal(){ modalOverlay.classList.remove('is-open'); }
+  modalClose.addEventListener('click', cerrarModal);
+  modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) cerrarModal(); });
+
+  shelf.addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-cat]');
+    if (!btn) return;
+    const catId = btn.dataset.cat;
+    const season = btn.dataset.season;
+    const esVerTodo = season === '__todo__';
+    const catObj = categorias.find(c => c.id === catId);
+    modalTitle.textContent = catObj ? catObj.nombre + (season && !esVerTodo ? ' · ' + season : '') : 'Productos';
+    modalBody.innerHTML = '<p class="modal-loading">Cargando productos...</p>';
+    abrirModal();
+
+    try {
+      const col = db.collection('productos');
+      const q = (season && !esVerTodo)
+        ? col.where('categoria', '==', catId).where('temporada', '==', season)
+        : col.where('categoria', '==', catId);
+      const snap = await q.get();
+      if (snap.empty) {
+        modalBody.innerHTML = '<p class="modal-empty">Aún no hay productos aquí. Vuelve pronto.</p>';
+        return;
+      }
+      const grid = document.createElement('div');
+      grid.className = 'modal-grid';
+      snap.forEach(docSnap => {
+        const p = docSnap.data();
+        const imagenes = (p.imagenes && p.imagenes.length ? p.imagenes : [p.imagenUrl]).filter(Boolean);
+        const item = document.createElement('div');
+        item.className = 'prod-card';
+        item.innerHTML = `
+          <div class="prod-card-img-wrap">
+            <img src="${imagenes[0]}" alt="${p.nombre}" data-idx="0">
+            ${imagenes.length > 1 ? `<span class="prod-card-count">1/${imagenes.length}</span>` : ''}
+          </div>
+          <div class="prod-card-body">
+            <strong>${p.nombre}</strong>
+            <span class="price">$${Number(p.precio).toFixed(2)} MXN</span>
+            ${p.color ? `<span class="prod-meta">Color: ${p.color}</span>` : ''}
+            ${p.tallas && p.tallas.length ? `<span class="prod-meta">Tallas: ${p.tallas.join(', ')}</span>` : ''}
+            ${p.descripcion ? `<p>${p.descripcion}</p>` : ''}
+          </div>
+        `;
+        item.querySelector('.prod-card-img-wrap').addEventListener('click', () => abrirLightbox(imagenes, 0));
+        grid.appendChild(item);
+      });
+      modalBody.innerHTML = '';
+      modalBody.appendChild(grid);
+    } catch (err) {
+      modalBody.innerHTML = '<p class="modal-empty">No se pudo cargar el catálogo en este momento.</p>';
+    }
+  });
+
+  // --- Lightbox con zoom y varias fotos ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCount = document.getElementById('lightboxCount');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+  let lbImagenes = [];
+  let lbIndex = 0;
+
+  function mostrarLightboxImg(){
+    lightboxImg.src = lbImagenes[lbIndex];
+    lightboxImg.classList.remove('zoomed');
+    lightboxCount.textContent = lbImagenes.length > 1 ? `${lbIndex + 1} / ${lbImagenes.length}` : '';
+    lightboxPrev.style.display = lbImagenes.length > 1 ? 'flex' : 'none';
+    lightboxNext.style.display = lbImagenes.length > 1 ? 'flex' : 'none';
+  }
+  function abrirLightbox(imagenes, index){
+    lbImagenes = imagenes;
+    lbIndex = index;
+    mostrarLightboxImg();
+    lightbox.classList.add('is-open');
+  }
+  function cerrarLightbox(){
+    lightbox.classList.remove('is-open');
+  }
+  lightboxClose.addEventListener('click', cerrarLightbox);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) cerrarLightbox(); });
+  lightboxPrev.addEventListener('click', () => { lbIndex = (lbIndex - 1 + lbImagenes.length) % lbImagenes.length; mostrarLightboxImg(); });
+  lightboxNext.addEventListener('click', () => { lbIndex = (lbIndex + 1) % lbImagenes.length; mostrarLightboxImg(); });
+  lightboxImg.addEventListener('click', () => { lightboxImg.classList.toggle('zoomed'); });
+</script>
+
+
+
+</body>
+</html>
