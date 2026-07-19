@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Sazón de Doña Agustina</title>
+<meta name="description" content="El Sazón de Doña Agustina — comida casera a domicilio. Pide por WhatsApp o Facebook.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#3B0F4F; --plum-light:#6C4A7E; --magenta:#C81A6D;
+    --orange:#F0952B; --hotpink:#EC1876; --cream:#FBF6F1;
+    --paper:#FFFDFB; --ink:#241129; --ink-soft:#5B4A63; --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Work Sans',sans-serif;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;margin:0;}
+  a{color:inherit;}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px;}
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,246,241,0.94); backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(59,15,79,0.08);
+  }
+  header .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;}
+  .brand{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--plum);}
+  .brand em{display:block;font-style:italic;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--magenta);}
+  .nav-social{display:flex;gap:10px;}
+  .social-btn{
+    width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    text-decoration:none;
+  }
+  .social-btn svg{width:19px;height:19px;fill:#fff;}
+  .social-btn.wa{background:#25D366;}
+  .social-btn.fb{background:var(--plum);}
+
+  .hero{padding:48px 0 30px;text-align:center;}
+  .eyebrow{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--magenta);font-weight:600;display:block;margin-bottom:10px;}
+  .hero h1{font-size:clamp(2rem,6vw,2.8rem);color:var(--plum);line-height:1.05;}
+  .hero h1 em{font-style:italic;color:var(--hotpink);}
+  .hero p{color:var(--ink-soft);max-width:44ch;margin:16px auto 0;line-height:1.6;}
+
+  .cat-tabs{display:flex;gap:10px;overflow-x:auto;padding:6px 20px 18px;scrollbar-width:none;}
+  .cat-tabs::-webkit-scrollbar{display:none;}
+  .cat-tab{
+    flex-shrink:0;padding:10px 18px;border-radius:999px;font-weight:600;font-size:0.88rem;
+    background:#fff;border:1.5px solid rgba(59,15,79,0.15);color:var(--ink-soft);cursor:pointer;
+  }
+  .cat-tab.active{background:var(--plum);border-color:var(--plum);color:#fff;}
+
+  .menu-section{padding:10px 0 60px;}
+  .cat-group{margin-bottom:38px;}
+  .cat-group h2{color:var(--plum);font-size:1.35rem;margin-bottom:16px;padding:0 20px;}
+  .dish-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px;}
+  @media (min-width:600px){.dish-grid{grid-template-columns:1fr 1fr 1fr;}}
+
+  .dish-card{background:var(--paper);border-radius:16px;overflow:hidden;box-shadow:0 10px 24px -16px rgba(59,15,79,0.3);display:flex;flex-direction:column;}
+  .dish-card img{width:100%;aspect-ratio:1;object-fit:cover;background:#eee2ec;}
+  .dish-body{padding:12px 14px 16px;display:flex;flex-direction:column;gap:6px;flex:1;}
+  .dish-body strong{font-size:0.95rem;}
+  .dish-body .price{color:var(--magenta);font-weight:700;}
+  .dish-body p{font-size:0.8rem;color:var(--ink-soft);margin:0;line-height:1.4;}
+  .order-btn{
+    margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    background:#25D366;color:#fff;border:none;border-radius:999px;padding:9px 14px;
+    font-weight:600;font-size:0.82rem;text-decoration:none;
+  }
+
+  .empty-msg{text-align:center;color:var(--ink-soft);padding:50px 20px;}
+
+  footer{padding:36px 20px 50px;text-align:center;color:var(--ink-soft);font-size:0.85rem;}
+  footer .brand{margin-bottom:8px;}
+
+  .wa-float{
+    position:fixed;right:20px;bottom:20px;z-index:60;width:56px;height:56px;border-radius:50%;
+    background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;
+    box-shadow:0 14px 28px -10px rgba(37,211,102,0.6);
+  }
+  .wa-float svg{width:27px;height:27px;fill:#fff;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">El Sazón de<em>Doña Agustina</em></div>
+    <div class="nav-social">
+      <a class="social-btn wa" href="https://wa.me/528673085118?text=Hola%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z"/><path d="M8.5 8.7c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4-.1.5l-.5.6c-.2.2-.1.4 0 .6.5.9 1.4 1.8 2.3 2.3.2.1.4.2.6 0l.6-.5c.1-.1.3-.2.5-.1l1.7.7c.5.2.5.4.5.6v.5c0 .3-.4 1-1.4 1.2-1 .2-2.3-.1-4-1.4-1.7-1.3-2.8-2.9-3.2-4-.4-1.1-.2-1.9.1-2.4z"/></svg>
+      </a>
+      <a class="social-btn fb" href="https://www.facebook.com/share/17kKmBg57N/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M15 3h-3a5 5 0 00-5 5v3H4v4h3v6h4v-6h3l1-4h-4V8a1 1 0 011-1h3z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Comida casera a domicilio</span>
+    <h1>El sazón de <em>casa</em>,<br>directo a tu puerta.</h1>
+    <p>Pide tu platillo favorito por WhatsApp o Facebook y te lo llevamos calientito.</p>
+  </div>
+</section>
+
+<div class="cat-tabs" id="catTabs"></div>
+
+<section class="menu-section">
+  <div class="wrap" id="menuWrap">
+    <p class="empty-msg">Cargando menú...</p>
+  </div>
+</section>
+
+<a class="wa-float" href="https://wa.me/528673085118?text=Hola%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z"/><path d="M8.5 8.7c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4-.1.5l-.5.6c-.2.2-.1.4 0 .6.5.9 1.4 1.8 2.3 2.3.2.1.4.2.6 0l.6-.5c.1-.1.3-.2.5-.1l1.7.7c.5.2.5.4.5.6v.5c0 .3-.4 1-1.4 1.2-1 .2-2.3-.1-4-1.4-1.7-1.3-2.8-2.9-3.2-4-.4-1.1-.2-1.9.1-2.4z" fill="#25D366" stroke="none"/></svg>
+</a>
+
+<footer>
+  <div class="brand" style="color:var(--plum);font-size:1.05rem;">El Sazón de <em style="color:var(--magenta);">Doña Agustina</em></div>
+  <p>Comida casera a domicilio. Pedidos por WhatsApp o Facebook.</p>
+  <p>© 2026 El Sazón de Doña Agustina.</p>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyA8u4qocfVvhtmyFI9clAQRoNznkaQ4Gsk",
+  authDomain: "iliana-fashion-more.firebaseapp.com",
+  projectId: "iliana-fashion-more",
+  storageBucket: "iliana-fashion-more.firebasestorage.app",
+  messagingSenderId: "769858774697",
+  appId: "1:769858774697:web:d2d58c62402f4fd4612bb8"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const menuWrap = document.getElementById('menuWrap');
+const catTabs = document.getElementById('catTabs');
+let platillosPorCategoria = {};
+let categoriasOrden = [];
+
+function pedirWhatsApp(nombre) {
+  const msg = encodeURIComponent(`Hola, quiero pedir: ${nombre}`);
+  return `https://wa.me/528673085118?text=${msg}`;
+}
+
+function renderCategoria(cat) {
+  menuWrap.innerHTML = '';
+  const cats = cat === 'todos' ? categoriasOrden : [cat];
+  cats.forEach(c => {
+    const platillos = platillosPorCategoria[c] || [];
+    if (!platillos.length) return;
+    const group = document.createElement('div');
+    group.className = 'cat-group';
+    const grid = document.createElement('div');
+    grid.className = 'dish-grid';
+    platillos.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'dish-card';
+      card.innerHTML = `
+        <img src="${p.imagenUrl || ''}" alt="${p.nombre}" onerror="this.style.display='none'">
+        <div class="dish-body">
+          <strong>${p.nombre}</strong>
+          <span class="price">$${Number(p.precio).toFixed(2)} MXN</span>
+          ${p.descripcion ? `<p>${p.descripcion}</p>` : ''}
+          <a class="order-btn" href="${pedirWhatsApp(p.nombre)}" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+    group.innerHTML = `<h2>${c}</h2>`;
+    group.appendChild(grid);
+    menuWrap.appendChild(group);
+  });
+  if (!menuWrap.children.length) {
+    menuWrap.innerHTML = '<p class="empty-msg">No hay platillos disponibles en esta categoría por ahora.</p>';
+  }
+}
+
+async function cargarMenu() {
+  try {
+    const snap = await db.collection('agustina_platillos').where('disponible', '==', true).get();
+    platillosPorCategoria = {};
+    snap.forEach(doc => {
+      const p = doc.data();
+      const cat = p.categoria || 'Otros';
+      if (!platillosPorCategoria[cat]) platillosPorCategoria[cat] = [];
+      platillosPorCategoria[cat].push(p);
+    });
+    categoriasOrden = Object.keys(platillosPorCategoria).sort();
+    if (!categoriasOrden.length) {
+      menuWrap.innerHTML = '<p class="empty-msg">Muy pronto vas a poder ver aquí el menú completo.</p>';
+      return;
+    }
+    catTabs.innerHTML = '<button class="cat-tab active" data-cat="todos">Todos</button>' +
+      categoriasOrden.map(c => `<button class="cat-tab" data-cat="${c}">${c}</button>`).join('');
+    catTabs.querySelectorAll('.cat-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        catTabs.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCategoria(btn.dataset.cat);
+      });
+    });
+    renderCategoria('todos');
+  } catch (err) {
+    menuWrap.innerHTML = '<p class="empty-msg">No se pudo cargar el menú en este momento.</p>';
+  }
+}
+cargarMenu();
+</script>
+</body>
+</html>
